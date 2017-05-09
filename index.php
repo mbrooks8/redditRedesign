@@ -9,181 +9,112 @@
 		<link href="./assets/css/font-awesome.min.css" type="text/css" rel="stylesheet" media="screen,projection" defer/>
 		<link href="./assets/css/prism.css" rel="stylesheet" defer/>
 
-		<!--Google SHit-->
-		<script src="https://apis.google.com/js/platform.js" async defer></script>
-		<meta name="google-signin-client_id" content="413698421344-c39mjtvkgs6svj4nipudj61uflfsjr31.apps.googleusercontent.com">
-		<style>
-			input[type=text] {
-				width: 130px;
-				box-sizing: border-box;
-				border: 2px solid #ccc;
-				border-radius: 4px;
-				font-size: 16px;
-				background-color: white;
-				background-image: url('./assets/img/searchicon.png');
-				background-position: 10px 10px;
-				background-repeat: no-repeat;
-				padding: 12px 20px 12px 40px;
-				-webkit-transition: width 0.4s ease-in-out;
-				transition: width 0.4s ease-in-out;
-			}
-
-			input[type=text]:focus {
-				width: 100%;
-			}
-			.dropdown-content {
-				display: none;
-				position: absolute;
-				background-color: #f9f9f9;
-				min-width: 245px;
-				box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-				z-index: 1;
-			}
-			.show {display:block;}
-		</style>
-		<style>
-			nav{
-				overflow: hidden;
-				width: 100%;
-			}
-			nav:before, nav:after{
-				z-index: -1;
-				position: absolute;
-				content: '';
-				height: 10px;
-				width: 0%;
-				top:64px;
-				right: 100%;
-				animation-name: loaderbefore;
-				animation-duration: 4s;
-				animation-iteration-count: infinite;
-				animation-timing-function: linear;
-				background-color: dodgerblue;
-			}
-			nav:after
-			{
-				animation-delay: 2s;
-			}
-			@keyframes loaderbefore {
-				0%
-				{
-					right:100%;
-					width: 25%;
-				}
-				50%
-				{
-					right:100%;
-					width: 25%;
-				}
-				83.33%
-				{
-					right:0%;
-					width: 50%;
-				}
-				100%
-				{
-					width:0%;
-					right:0%;
-				}
-			}
-		</style>
-
 	</head>
 
 	<body>
 
-		<div class="sidebar fixed" id="side">
-			<div class="sideHeader" style="text-align:center;">
-				<div class="sideHeader" style="text-align:center;">
-					<a href="#welcome"><img src="./assets/img/4devLogoBlack.png"></a>
+		<div class="sidebar fixed" id="side" style="background: white;">
+			<div class="sideHeader" style="text-align:center; padding-bottom:0px; padding-top:0px;">
+				<div class="sideHeader" style="text-align:center; background-color:transparent !important;padding-bottom: 0px; padding-top:0px;">
+					<h5>Reddit</h5>
+					<p style="font-size:90%; padding-bottom:5px;">Your Front Page Of The Internet</p>
+					<a>PanickedStudent</a><br>
+					<a>messages <span style="color:orange;">(new)</span></a><br>
+					<a>logout</a><br>
+					<a class="accent">reddit gold</a><br>
+					<div class="row valign" style="margin-bottom:0;">
+						<div class="col s1"></div>
+						<div class="col s9" style="padding:0;">
+							<div class="card flat">
+								<div class="card-content z-depth-3" style="padding:0; background-color:white;">
+									<h5>YOUR SUBS</h5>
+								</div>
+							</div>
+						</div>
+						<div class="col s1" style="padding:0; width:30px; transform:translate(10px);">
+							<p style="background-color:#C6C6C6">CY</p>
+
+						</div>
+					</div>
+
+
 				</div>
 			</div>
-			<div class="sideBody">
-				<ul >
-					<li>
-						<a href="#welcome">About Us</a>
-					</li>
-					<li><a href="#setup">Getting Started</a></li>
-					<li>
-						<a>CSS</a>
-						<ul>
-							<li><a href="#css/button">Button</a></li>
-							<li><a href="#css/color">Color</a></li>
-							<li><a href="#css/form">Form</a></li>
-							<li><a href="#css/table">Table</a></li>
-							<li><a href="#css/text">Text</a></li>
-							<li><a href="#css/template">Grid System</a></li>
-						</ul>
+			<style>
+				.sideBody li a {
 
-					</li>
-					<li>
-						<a>Components</a>
-						<ul>
-							<li><a href="#components/banner">Banner</a></li>
-							<li><a href="#components/card">Card</a></li>
-							<li><a href="#components/carousel">carousel</a></li>
-							<li><a href="#components/chip">Chip</a></li>
-							<li><a href="#components/modal">modal</a></li>
-							<li><a href="#components/navbar">Navbar</a></li>
-						</ul>
+					padding: 0;
+				}
+				hr{
+					margin-top:2px;
+					margin-bottom:2px;
+				}
+				.short{
+					max-width:150px !important;
+				}
+			</style>
+			<div style="width:90%; padding-left:10%;">
+				<div class="sideBody center z-depth-3" style="border:1px solid grey; padding-top:5px; padding-bottom:5px;">
+					<ul >
+						<li><a href="#showcase">COGS</a></li>
+						<hr class="short">
+						<li><a href="#utility">GETAGOODGRADE</a></li><hr class="short">
 
-					</li>
-					<li>
-						<a>Features</a>
-						<ul>
-							<li><a href="#features/ajax">Ajax</a></li>
-							<li><a href="#features/editing">Editing</a></li>
-						</ul>
+						<li><a href="#utility">ASKREDDIT</a></li><hr class="short">
 
-					</li>
-					<li><a href="#showcase">Showcase</a></li>
-					<li><a href="#utility">Utility</a></li>
-					<?php
-					include("./php/config.php");
-					if (isLogged()){
-						echo '<li><a href="#" onclick="signOut();">Sign out</a></li>';
-					}else{
-						echo '<li><a href="#login">Login</a></li>';
-					}
-					?>
-				</ul>
+						<li><a href="#utility">WORLDNEWS</a></li><hr class="short">
+
+						<li><a href="#utility">PREQUELMEMES</a></li><hr class="short">
+
+						<li><a href="#utility">GAMING</a></li><hr class="short">
+
+						<li><a href="#utility">MEMEECONOMY</a></li><hr class="short">
+
+						<li><a href="#utility">LEAGUEOFLEGENDS</a></li><hr class="short">
+
+						<li><a href="#utility">TODAYILEARNED</a></li><hr class="short">
+
+						<li><a href="#utility">WOWSERVERS</a></li><hr class="short">
+
+						<li><a href="#utility">SPIKES</a></li><hr class="short">
+
+						<li><a href="#utility">MAGICTHEGATHERING</a></li><hr class="short">
+
+						<li><a href="#utility">MOVIES</a></li><hr class="short">
+
+						<li><a href="#utility">MSLGAME</a></li>
+
+					</ul>
+				</div>
 			</div>
+			<div style="width:90%; padding-left:10%; padding-top:10px;">
+				<div class="sideHeader" style="padding-bottom:0px; border:1px solid grey;">
+					<div class="row">
+						<div class="col s12 center"><p style="font-size:90%;">about // help</p></div>
+						<div class="col s6" style="padding:0; padding-left:15px;">
+							<a style="font-size:80%;">blog</a><br>
+							<a style="font-size:80%;">about</a><br>
+							<a style="font-size:80%;">reddiquitte</a><br>
+							<a style="font-size:80%;">site rules</a><br>
+							<a style="font-size:80%;">FAQ</a>
+						</div>
+						<div class="col s6" style="padding:0; padding-left:5px;">
+							<a style="font-size:80%;">careers</a><br>
+							<a style="font-size:80%;" class="accent">reddit gold</a><br>
+							<a style="font-size:80%;">mod guidelines</a><br>
+							<a style="font-size:80%;">contact us</a><br>
+							<a style="font-size:80%;">wiki</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
 		</div>
 
 		<div class="site-content fixed" style="" >
 
-			<nav>
-				<div>
-					<input class="hide-on-med-and-down" autocomplete="off" type="text" name="search" id="searchBar" placeholder="search">
-				</div>
-				<div class="nav-wrapper hide-on-large-only">
-					<div class="left">
-						<input autocomplete="off" type="text" name="search" id="searchBar2" placeholder="search">
-					</div>
-					<a href="#welcome" class="logo"><img src="./assets/img/4devLogoBlack.png"></a>
-					<ul class="right ">
-						<li><a class="sideToggle"><i class="fa fa-bars" aria-hidden="true"></i></a></li>
-					</ul>
-				</div>
-			</nav>
-
 			<div id="replace" style="min-height:calc(100vh - 64px)"></div>
-			<footer class="page-footer">
-				<div class="container">
-					<div class="row">
-						<div class="col l8 s12">
-							<h5 class="white-text">4Dev</h5>
-							<p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
-						</div>
-					</div>
-				</div>
-				<div class="footer-copyright">
-					<div class="container">
-						© 2017 Copyright 4Dev All Rights Reserved
-						<a class="grey-text text-lighten-4 right" href="https://www.linkedin.com/in/estebanmagallonperez/">Please Hire Us</a>
-					</div>
-				</div>
-			</footer>
+
 
 		</div>
 

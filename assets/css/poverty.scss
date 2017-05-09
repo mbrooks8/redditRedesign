@@ -11,13 +11,13 @@ $roboto-font-path:"../fonts/roboto/";
 // Colors
 // ==========================================================================
 
-$primary-color: #f76058 !default;
+$primary-color: #336699 !default;
 $primary-color-light: lighten($primary-color, 15%) !default;
 $primary-color-dark: darken($primary-color, 15%) !default;
 
 $secondary-color: #f1a203 !default;
 
-$accent-color: #9bbf67 !default;
+$accent-color: #DEBE22 !default;
 $success-color: #00A490 !default;
 $error-color: #EF4B23 !default;
 $link-color: $primary-color !default;
@@ -70,7 +70,7 @@ $nav-logo-text-size: 2.1rem !default;
 //SideNavBar
 // ==========================================================================
 $side-width:245px;
-$side-color:$nav-color;
+$side-color:white;
 // ==========================================================================
 //Button
 // ==========================================================================

@@ -188,7 +188,7 @@ nav {
 	@extend .z-depth-1;
 	transition: left 0.5s ease;
 	position: fixed;
-	height: 100vh;
+	min-height: 100vh;
 	width: $side-width;
 	left: -$side-width;
 	top:0;
