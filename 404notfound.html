@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Web4Dev</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+		<link href="./css/poverty.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+		<link href="./css/font-awesome.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+		<script src="./js/poverty.js" async></script>
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="crossorigin="anonymous"></script>
+		<link href="css/prism.css" rel="stylesheet" />
+
+		<!--Google SHit-->
+		<script src="https://apis.google.com/js/platform.js" async defer></script>
+		<meta name="google-signin-client_id" content="413698421344-c39mjtvkgs6svj4nipudj61uflfsjr31.apps.googleusercontent.com">
+		<!--end google shit-->
+
+		<!--google addsense-->
+		<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+		<script>
+			(adsbygoogle = window.adsbygoogle || []).push({
+				google_ad_client: "ca-pub-7733377132872440",
+				enable_page_level_ads: true
+			});
+		</script>
+	</head>
+	<body>
+		<div class="sidebar fixed" id="side">
+			<div class="sideHeader" style="text-align:center;">
+				<div class="sideHeader" style="text-align:center;">
+					<h3 class="white-text">web4Dev</h3>
+				</div>
+			</div>
+			<div class="sideBody">
+				<ul >
+					<li>
+						Search:
+						<div>
+							<input autocomplete="off" type="text" name="search" id="searchBar">
+							<!--<div class="sideBody" id="results">
+</div>-->
+						</div>
+					</li>
+					<li>
+						<a class="sideToggle" data-ajax="true" href="#welcome">About Us</a>
+					</li>
+					<li><a class="sideToggle" data-ajax="true" href="#setup">Getting Started</a></li>
+					<li><a class="sideToggle" data-ajax="true" href="#banner">Banner</a></li>
+					<li>
+						<a class="sideToggle" data-ajax="true" href="#button">Button</a>
+					</li>
+					<li><a class="sideToggle" data-ajax="true" href="#card">Card</a></li>
+					<li><a class="sideToggle" data-ajax="true" href="#chip">Chip</a></li>
+					<li><a class="sideToggle" data-ajax="true" href="#color">Color</a></li>
+					<li><a class="sideToggle" data-ajax="true" href="#navbar">Navbar</a></li>
+					<li><a class="sideToggle" data-ajax="true" href="#table">Table</a></li>
+					<li><a class="sideToggle" data-ajax="true" href="#template">Template</a></li>
+					<li><a class="sideToggle" data-ajax="true" href="#utility">Utility</a></li>
+					<li id="userStatus"><a class="sideToggle" href="#" onclick="signOut();">Sign out</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="site-content fixed" style="" id="">
+			<nav class="fixed">
+				<div class="nav-wrapper">
+					<a href="#" class="logo">Logo</a>
+					<ul class="right hide-on-med-and-up">
+						<li><a class="sideToggle"><i class="fa fa-bars" aria-hidden="true"></i></a></li>
+					</ul>
+				</div>
+			</nav>
+			<div id="replace"></div>
+		</div>
+	</body>
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="crossorigin="anonymous"></script>
+	<script src="./js/prism.js"></script>
+	<script>
+		$(window).bind('popstate', function(event) {
+			var state = event.originalEvent.state;
+			if (state) {
+				newPageUrl = location.href;
+				pathArray = location.href.split( '/' );
+				url = pathArray[0] + '//' + pathArray[2];
+				console.log(newPageUrl);
+				console.log(pathArray[3]);
+				console.log("attempting to load: "+url+'/pages'+location.pathname+".html");
+				url = url+'/pages'+location.pathname+".html";
+				console.log(url == location.href);
+				$.ajax(
+					{url:url,
+					 success: function(data){
+						 $("#replace").fadeOut(401);
+						 setTimeout(function(){updatePage(data);},400);
+					 }});
+			}
+		});
+
+		$("a").click(
+			function(e)
+			{
+				if(this.getAttribute("data-ajax"))
+				{
+					url = location.origin;
+					var newDest = this.href.split("#");
+					if(location.href == url+"/"+newDest[1])
+					{
+						e.preventDefault();
+						return 0;
+					}
+					history.pushState({}, "test", newDest[1]);
+					url = location.origin+'/pages/'+newDest[1]+'.html';
+					$.ajax(
+						{url:url,
+						 success:function(data){
+							 $("#replace").fadeOut(401);
+							 setTimeout(function(){updatePage(data);},400);
+						 },
+						 error:function(){
+							 $.ajax(
+								 {url:'./pages/error.html',
+								  success:function(data){
+									  console.log("oops");
+									  $("#replace").fadeOut(401);
+									  setTimeout(function(){updatePage(data);},400);
+								  }
+								 })}
+						});
+					return false;
+				}else
+				{
+					console.log("no ajax");
+					return 0;
+				}
+			}
+
+		);
+		function updatePage(data)
+		{
+			var $target = $('html,body');
+			$target.animate({scrollTop: 0}, 0);
+			$("#replace").html(data);
+			$("#replace").fadeIn(401);
+			Prism.highlightAll();
+			var editables = $("ul.editable,ol.editable,h1.editable,h2.editable,h3.editable,h4.editable,h5.editable,h6.editable,p.editable,div.editable");
+			editables.each(function(){
+				getContent($(this));
+			});
+		}
+
+		/*function updateContent(url)
+		{
+			console.log("updating with: "+window.location.hash);
+			var hash = window.location.hash;
+			if(hash =='')
+			{
+				hash = 'welcome';
+			}else{
+				hash = hash.substr(1);
+			}
+			$.ajax(
+				{url:'./pages/'+hash+'.html',
+				 success:function(data){
+
+					 $("#replace").fadeOut(401);
+					 setTimeout(function(){updatePage(data);},400);
+				 },
+				 error:function(){
+					 $.ajax(
+						 {url:'./pages/error.html',
+						  success:function(data){
+							  $("#replace").fadeOut(401);
+							  setTimeout(function(){updatePage(data);},400);
+						  }
+						 })}
+				});
+		}*/
+		window.onload = function() {
+			var path = window.location.pathname;
+			console.log("load address is:"+window.location);
+			if(window.location.pathname.includes("index.html"))
+			{
+				console.log("if");
+				path = path.replace("index.html","")
+				console.log("path is: "+path);
+				history.replaceState({}, "test", path+"welcome");
+			}else if(path[path.length] =='/')
+			{
+				console.log("else");
+			}
+
+			pathArray = location.href.split( '/' );
+			url = pathArray[0] + '//' + pathArray[2];
+			var newDest = path;
+
+			$.ajax(
+				{url:url+'/pages/'+path+'.html',
+				 success:function(data){
+					 console.log("loading");
+					 $("#replace").fadeOut(401);
+					 setTimeout(function(){updatePage(data);},400);
+				 },
+				 error:function(){
+					 $.ajax(
+						 {url:'./pages/error.html',
+						  success:function(data){
+							  console.log("oops");
+							  $("#replace").fadeOut(401);
+							  setTimeout(function(){updatePage(data);},400);
+						  }
+						 })}
+				});
+
+			console.log("loaded");
+
+			$(".sideToggle").click(function(){
+				$(".sidebar").toggleClass("active");
+			});
+
+		};
+	</script>
+	<script>
+
+		$( "#searchBar" ).parent().focusin(function() {
+			$( this ).parent().append("<div class=\"card\"style=\"margin:0px;width:100%;overflow-y:scroll;position:absolute;max-height:200px;z-index:10000;\" class=\"sideBody\" id=\"results\"></div>");
+			updateSearch()
+		});
+		$("#searchBar").parent().focusout(function(){
+			setTimeout(function(){$("#results").remove();},250)
+
+		});
+		$( "#searchBar" ).keyup(function() {
+			updateSearch()
+		});
+
+		function updateSearch(){
+			var url = window.location.pathname;
+			url = url.substring(url.lastIndexOf('/')+1);
+			console.log(document.getElementById('searchBar').value );
+			$.ajax({
+				url: './php/search.php',
+				type: 'POST',
+				data: {
+					"search": ''+document.getElementById('searchBar').value,
+					"page": '"'+ url+window.location.hash+ '"'
+				},
+				success: function(data) {
+					console.log($("#results"));
+					$("#results").html(data);
+					console.log(data);
+
+				},
+				error: function(e) {
+					console.log("oops");
+				}
+			});}
+	</script>
+	<script src="./js/loadContent.js" async></script>
+	<script>
+		function userExecute(myfunction)
+		{
+			console.log("executing... maybe");
+			jQuery.ajax({
+				type: "GET",
+				url: './php/getUser.php',
+				success: function (data) {
+					if(data == 1 )
+					{
+						console.log(data);
+
+					}else
+					{
+						myfunction();
+						return;
+					}
+				},error: function(e){
+					return 0;
+				}
+			});
+		}
+		function setLoginStatus()
+		{
+			$("#userStatus").html('<a href="http://web4devs.com/php/login.php">Login</a>');
+		}
+		console.log("before User exec");
+		userExecute(function(){setLoginStatus();});
+		function signOut() {
+			gapi.load('auth2', function() {
+				gapi.auth2.init();
+				var auth2 = gapi.auth2.getAuthInstance();
+				auth2.signOut().then(function () {
+					console.log('User signed out.');
+					window.location = "./php/logout.php";
+				});
+			});
+
+		}
+	</script>
+</html>

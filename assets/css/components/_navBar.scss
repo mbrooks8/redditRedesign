@@ -1,0 +1,273 @@
+//Top Nav
+nav {
+	height:$nav-height;
+	background-color:$nav-color;
+	width: 100%;
+	line-height: $nav-height;
+	padding-left:20px;
+	padding-right:20px;
+	z-index:997;
+	overflow: hidden;
+	width: 100%;
+	//Logo
+	.logo{
+		position:absolute;
+		color: $nav-text-color;
+		display: inline-block;
+		padding: 0;
+		height:$nav-height;
+		white-space: nowrap;
+		font-size:$nav-logo-text-size;
+
+		img{
+			max-height:$nav-height;
+			padding-top:10px;
+			padding-bottom:10px;
+		}
+
+		&.center {
+			left: 50%;
+			transform: translateX(-50%);
+		}
+
+		@media #{$medium-and-down} {
+			left: 50%;
+			transform: translateX(-50%);
+
+			&.left, &.right {
+				padding: 0;
+				transform: none;
+			}
+
+			&.left { left: 0.5rem; }
+			&.right {
+				right: 0.5rem;
+				left: auto;
+			}
+		}
+
+		&.right {
+			right: 0.5rem;
+			padding: 0;
+		}
+	}
+	ul{
+		margin:0px;
+		float:right;
+
+		li{
+			height: 64px;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+
+			list-style-type: none;
+			transition: background-color .3s;
+			float: left;
+			padding: 0;
+
+			&.active {
+				background-color: rgba(0,0,0,.1);
+			}
+		}
+		a {
+			transition: color .3s;
+			font-size: $nav-text-size;
+			color: $nav-text-color;
+			display: block;
+			padding: 0 15px;
+			cursor: pointer;
+
+			&:hover {
+				color: $nav-text-color-dark;
+			}
+		}
+
+		&.left {
+			float: left;
+		}
+
+	}
+	&.fixed{
+		position: fixed;
+		top:0px;
+		background-color:$nav-color;
+
+	}
+	&.bottom{
+		bottom:0px;
+		background-color:$nav-color;
+		position:fixed;
+	}
+	//Loader
+	&:before{
+		z-index: -1;
+		position: absolute;
+		content: '';
+		height: 10px;
+		width: 0%;
+		top:64px;
+		right: 100%;
+		animation-name: loaderbefore;
+		animation-duration: 4s;
+		animation-iteration-count: infinite;
+		animation-timing-function: linear;
+		background-color: red;
+	}
+	&:after{
+		z-index: -1;
+		position: absolute;
+		content: '';
+		height: 10px;
+		width: 0%;
+		top:64px;
+		right: 100%;
+		animation-name: loaderbefore;
+		animation-duration: 4s;
+		animation-iteration-count: infinite;
+		animation-timing-function: linear;
+		background-color: red;
+		animation-delay: 2s;
+	}
+	@keyframes loaderbefore {
+		0%
+		{
+			right:100%;
+			width: 25%;
+		}
+		50%
+		{
+			right:100%;
+			width: 25%;
+		}
+		83.33%
+		{
+			right:0%;
+			width: 50%;
+		}
+		100%
+		{
+			width:0%;
+			right:0%;
+		}
+	}
+}
+
+//Side nav
+.active
+{
+	.overlay
+	{
+		background-color: rgba(0,0,0,0.7);
+		pointer-events: auto;
+	}
+}
+
+.overlay
+{
+	height: 100vh;
+	width: 100vw;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	transition: background-color 0.5s ease;
+	z-index: -1;
+	pointer-events: none;
+
+}
+.sidebar
+{
+
+}
+.site-content.fixed
+{
+	transition:margin-left 0.5s ease;
+}
+.sidebar
+{
+	@extend .z-depth-1;
+	transition: left 0.5s ease;
+	position: fixed;
+	height: 100vh;
+	width: $side-width;
+	left: -$side-width;
+	top:0;
+	z-index: 998;
+	display: flex;
+	flex-direction: column;
+	@media screen and (max-width: $medium-screen) {
+		&.active
+		{
+			left:0px !important;
+		}
+		&.fixed
+		{
+			left:-245px;
+		}
+	}
+	@media screen and (min-width: $medium-screen) {
+		&.fixed
+		{
+			left: 0px;
+		}
+		&.active
+		{
+			left:0px !important;
+		}
+	}
+}
+.sideHeader
+{
+	width:100%;
+	background-color: $side-color;
+	min-height: 40px;
+	z-index: 1;
+	padding: 10px;
+}
+.sideBody
+{
+	flex: 2;
+	display: flex;
+	background-color: white;
+	z-index: 1;
+	overflow: auto;
+	ul {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+		width: 100%;
+	}
+	li a {
+		display: block;
+		color: #000;
+		padding: 8px 16px;
+		text-decoration: none;
+		transition: background-color 0.2s ease;
+		&:hover
+		{
+			background-color: #555;
+			color: white;
+		}
+	}
+	ul{
+		li{
+			ul{
+				max-height: 0px;
+				overflow: hidden;
+				transition:max-height .4s ease-in-out;
+				a
+				{
+					padding-left: 12%;
+				}
+			}
+			&.active
+			{
+				ul
+				{
+					max-height: 500px;
+				}
+			}
+		}
+	}
+
+}

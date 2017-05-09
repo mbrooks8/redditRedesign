@@ -1,0 +1,116 @@
+.button {
+	display: inline-block;
+	position: relative;
+	min-width: 4.5em;
+	height: 2.3em;
+	line-height: 2.4em;
+	border-radius: .14em;
+	padding: 0px 1.15em;
+	font-size: 1.4em;
+	background-color: $button-background-color;
+	text-align: center;
+	text-decoration: none;
+	overflow: hidden;
+	text-transform: uppercase;
+	&.round{
+		border-radius: 2.4em;
+	}
+	&.raised{
+		&:hover
+		{
+			box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+		}
+	}
+	&:before
+	{
+		transition: background-color .2s ease;
+		position: absolute;
+		left: 0px;
+		top: 0px;
+		content: "";
+		z-index: 1;
+		height: 100%;
+		width:100%;
+		background-color: rgba(0,0,0,0);
+	}
+	&:active
+	{
+		&:after
+		{
+			z-index: 1;
+			content: "";
+			border-radius: 50%;
+			height: 0px;
+			width: 0px;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%,-50%);
+
+			animation-name: tap;
+			animation-duration: .4s;
+			animation-iteration-count: 1;
+			animation-timing-function: ease-in-out;
+			background-color: rgba(255,255,255,.2);
+		}
+	}
+	&:hover
+	{
+		&:before{
+			background-color: rgba(0,0,0,.08);
+		}
+	}
+	&.floating{
+		display: inline-block;
+		border: none;
+		position:absolute;
+		vertical-align: middle;
+		overflow: hidden;
+		min-height: 0px;
+		min-width: 0px;
+		height:$button-floating-size;
+		width:$button-floating-size;
+		line-height: $button-floating-size;
+		border-radius:50%;
+		bottom:-27px;
+		left:75%;
+		margin:0;
+		padding:0;
+		background-color:$button-floating-color;
+		color:#ffffff;
+		@extend .z-depth-1;
+		cursor: pointer;
+		z-index: 1;
+		&:hover{
+			background-color: $button-floating-background-hover;
+			@extend .z-depth-1-half;
+		}
+
+		i {
+			width: inherit;
+			display: inline-block;
+			text-align: center;
+			cursor: pointer;
+			font-size: $button-large-icon-font-size;
+			line-height: $button-floating-size;
+		}
+	}
+	@keyframes tap {
+		0%
+		{
+			background-color: rgba(255,255,255,.2);
+			height:0px;
+			width:0px;
+		}
+		80%
+		{
+			height:300px;
+			width:300px;
+		}100%
+		{
+			background-color: rgba(255,255,255,0);
+			height:300px;
+			width:300px;
+		}
+	}
+}
